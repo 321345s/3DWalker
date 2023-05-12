@@ -5,7 +5,7 @@ window.onload = () => {
   let canvas = document.getElementById('webgl');
   let positon_text = document.getElementById('position');
   let lookat_text = document.getElementById('lookat');
-  let timestamp_text = document.getElementById('timestamp');
+  // let timestamp_text = document.getElementById('timestamp');
   canvas.setAttribute("width", 500);
   canvas.setAttribute("height", 500);
   window.ratio = canvas.width / canvas.height;
