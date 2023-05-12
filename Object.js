@@ -30,6 +30,8 @@ class ObjectLoader {
     return this;
   }
 
+  
+
   initShaders() {
     // Vertex shader program
     let VSHADER_SOURCE = `
@@ -165,6 +167,12 @@ class ObjectLoader {
 
     let g_mvpMatrix = Camera.getMatrix();
     g_mvpMatrix.concat(this.g_modelMatrix);
+    //birdAnimation
+    if(this.entity.objFilePath=="./model/bird.obj"){
+      
+      g_mvpMatrix.translate(0.5*Math.cos(timestamp/1000),0.5*Math.sin(timestamp/1000),0);
+      // console.log(g_mvpMatrix);
+    }
 
     this.gl.uniformMatrix4fv(this.u_MvpMatrix, false, g_mvpMatrix.elements);
     // Draw

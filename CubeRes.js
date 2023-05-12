@@ -141,8 +141,8 @@ function initVertexBuffers(gl) {
 
   var indices = new Uint8Array(cubeRes.index);
 
-  console.log(vertices);
-  console.log(indices);
+  // console.log(vertices);
+  // console.log(indices);
 
   // Create a buffer object
   var indexBuffer = gl.createBuffer();

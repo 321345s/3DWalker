@@ -5,6 +5,7 @@ window.onload = () => {
   let canvas = document.getElementById('webgl');
   let positon_text = document.getElementById('position');
   let lookat_text = document.getElementById('lookat');
+  let timestamp_text = document.getElementById('timestamp');
   canvas.setAttribute("width", 500);
   canvas.setAttribute("height", 500);
   window.ratio = canvas.width / canvas.height;
@@ -39,8 +40,10 @@ class SceneLoader {
       this.initCamera(timestamp);
 
       for (let loader of this.loaders) {
+        
         loader.render(timestamp);
       }
+      
 
       //CubeRes
       render_CubeRes();
@@ -114,12 +117,13 @@ class SceneLoader {
 
         // Load objects
     for (let o of ObjectList) {
-      let loader = new ObjectLoader(o, {'gl': this.gl}).init();
-      // Add animation to bird
 
-      // if (o.objFilePath.indexOf('bird') > 0) {
-      //   continue;
-      // }
+      // Add animation to bird
+      if (o.objFilePath.indexOf('bird') > 0) {
+        // o.transform[0] = {type: "translate", content: [5, 1, -10]};
+      }
+      let loader = new ObjectLoader(o, {'gl': this.gl}).init();
+      
       this.loaders.push(loader);
     }
   }

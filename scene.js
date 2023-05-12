@@ -156,6 +156,7 @@ ObjectList = [
     color: [0.5, 0.9, 0.5],
     kads: [0.2, 0.8, 0.5],
     transform: [
+      // {type: "rotate", content: [1, 0, 1, 1]},
       {type: "translate", content: [5, 5, -10]},
       {type: "rotate", content: [0, 0, 1, 0]},
       {type: "translate", content: [0, 0, 5]},
