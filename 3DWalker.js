@@ -41,7 +41,10 @@ class SceneLoader {
       for (let loader of this.loaders) {
         loader.render(timestamp);
       }
-      
+
+      //CubeRes
+      render_CubeRes();
+
       requestAnimationFrame(render, this.gl);
     };
 
@@ -97,6 +100,9 @@ class SceneLoader {
       'enableLight': true
     }).init();
     this.loaders.push(floorLoader);
+
+    //Load cubeRes
+    // main_CubeRes();
 
     // Load box
     let boxLoader = new TextureLoader(boxRes, {
