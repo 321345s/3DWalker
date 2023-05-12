@@ -12,6 +12,7 @@ class Camera {
     Camera.fov = CameraPara.fov;
     Camera.near = CameraPara.near;
     Camera.far = CameraPara.far;
+    Camera.light = true;
   }
 
   static getMatrix() {

@@ -44,7 +44,7 @@ class SceneLoader {
         loader.render(timestamp);
       }
       
-
+      // console.log(Camera.light);
       //CubeRes
       render_CubeRes();
 
@@ -70,16 +70,25 @@ class SceneLoader {
     cameraMap.set('d', 'posRight');
     cameraMap.set('j', 'rotLeft');
     cameraMap.set('l', 'rotRight');
-
+    cameraMap.set('f', 'lightSwitch');
     cameraMap.forEach((val, key)=> {
-          this.keyboardController.bind(key, {
-            on: (()=> {
-              Camera.state[val] = 1;
-            }),
-            off: (()=> {
-              Camera.state[val] = 0;
-            })
-          });
+          
+            this.keyboardController.bind(key, {
+              on: ((key)=> {
+                if(key=='f'){
+                  Camera.light = (!Camera.light);
+                  // console.log("press f");
+                }else{
+                  Camera.state[val] = 1;
+                }
+                
+              }),
+              off: (()=> {
+                Camera.state[val] = 0;
+              })
+            });
+          
+          
         }
     )
   }

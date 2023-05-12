@@ -41,10 +41,14 @@ class ObjectLoader {
         uniform mat4 u_MvpMatrix;
         uniform mat4 u_ModelMatrix;
         uniform mat4 u_NormalMatrix;
-        varying vec4 v_Color;
+        uniform vec3 u_LightColor;
+        uniform vec3 u_LightPosition;
+        
         uniform vec3 u_Color;
         uniform vec3 u_LightDirection;
         uniform vec3 u_AmbientLight;
+
+        varying vec4 v_Color;
         void main() {
           gl_Position = u_MvpMatrix * a_Position;
 
@@ -57,7 +61,13 @@ class ObjectLoader {
           vec3 diffuse = u_DiffuseLight * u_Color * nDotL;
           vec3 ambient = u_AmbientLight * u_Color;
 
+          vec4 vertexPosition = u_ModelMatrix * a_Position;
+          vec3 lightDirection = normalize(u_LightPosition - vec3(vertexPosition));
+          nDotL = max(dot(lightDirection, normal), 0.0);
+          diffuse = diffuse+u_LightColor * a_Color.rgb * nDotL;
+          ambient = ambient;
           v_Color = vec4(diffuse + ambient, a_Color.a);
+          // v_Color = vec4(u_LightColor * u_Color * nDotL, a_Color.a);//test
         }`;
 
     // Fragment shader program
@@ -91,6 +101,9 @@ class ObjectLoader {
     this.u_LightDirection = this.gl.getUniformLocation(this.program, 'u_LightDirection');
     this.u_AmbientLight = this.gl.getUniformLocation(this.program, 'u_AmbientLight');
     this.u_Color = this.gl.getUniformLocation(this.program, 'u_Color');
+    this.u_LightColor = this.gl.getUniformLocation(this.program, 'u_LightColor');
+    this.u_LightPosition = this.gl.getUniformLocation(this.program, 'u_LightPosition');
+    
 
     this.gl.useProgram(this.program);
     this.gl.program = this.program;
@@ -157,6 +170,25 @@ class ObjectLoader {
     lightDirection.normalize();
     this.gl.uniform3fv(this.u_LightDirection, lightDirection.elements);
     this.gl.uniform3fv(this.u_AmbientLight, new Vector3(sceneAmbientLight).elements);
+// Set the light color 
+    if(Camera.light==true){
+      // console.log("light==true");
+
+      this.gl.uniform3f(this.u_LightColor,scenePointLightColor[0], scenePointLightColor[1], scenePointLightColor[2]);
+      // this.gl.uniform3f(this.u_LightColor,1.0,1.0,1.0);//test
+    }else{
+      // console.log("light==false");
+      this.gl.uniform3f(this.u_LightColor,0.0, 0.0, 0.0);
+    }
+    //  console.log(scenePointLightColor);
+    
+    // this.gl.uniform3f(this.u_LightColor,scenePointLightColor[0], scenePointLightColor[1], scenePointLightColor[2]);
+    // Set the light direction (in the world coordinate)
+    // console.log(Camera.at);
+
+    this.gl.uniform3f(this.u_LightPosition, Camera.eye.elements[0], Camera.eye.elements[1], Camera.eye.elements[2]);
+    // this.gl.uniform3f(this.u_LightPosition, 0.0, 0.0, 0.0);//test
+    //  console.log(Camera.eye);
 
     this.gl.uniform3fv(this.u_Color, new Vector3(this.entity.color).elements);
 

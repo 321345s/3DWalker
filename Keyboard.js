@@ -8,7 +8,7 @@ class KeyboardController {
 
     document.addEventListener('keydown', (event)=> {
       if (!this.keyMap.get(event.key)) return;
-      this.keyMap.get(event.key).on();
+      this.keyMap.get(event.key).on(event.key);
     });
     document.addEventListener('keyup', (event)=> {
       if (!this.keyMap.get(event.key)) return;
