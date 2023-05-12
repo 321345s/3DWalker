@@ -73,7 +73,7 @@ function main_CubeRes() {
   gl.drawElements(gl.TRIANGLES, n, gl.UNSIGNED_BYTE, 0);
 }
 
-function render_CubeRes(){
+function render_CubeRes(){//CubeRes箱体的绘制
       // console.log("main_CubeRes");
   // Retrieve <canvas> element
   var canvas = document.getElementById('webgl');

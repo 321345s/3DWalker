@@ -10,10 +10,10 @@ class TextureLoader {
     this.activeTextureIndex = config.activeTextureIndex;
   }
 
-  init() {
+  init(filePath) {
     this.initShaders();
 
-    this.initTextures();
+    this.initTextures(filePath);
 
     this.initBuffers();
 
@@ -90,7 +90,7 @@ class TextureLoader {
     this.vertexIndexBuffer = this.gl.createBuffer();
   }
 
-  initTextures() {
+  initTextures(filePath) {
     // Create a texture object
     this.texture = this.gl.createTexture();
 
@@ -103,7 +103,7 @@ class TextureLoader {
 
     // Load texture image
     this.textureImage = new Image();
-    this.textureImage.src = './image/sky.jpg';
+    this.textureImage.src = './image/'+filePath;
     this.textureImage.onload = ()=> {
       this.handleTextureLoad();
     };

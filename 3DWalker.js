@@ -98,7 +98,7 @@ class SceneLoader {
       'gl': this.gl,
       'activeTextureIndex': 0,
       'enableLight': true
-    }).init();
+    }).init("floor.jpg");
     this.loaders.push(floorLoader);
 
     //Load cubeRes
@@ -109,7 +109,7 @@ class SceneLoader {
       'gl': this.gl,
       'activeTextureIndex': 1,
       'enableLight': true
-    }).init();
+    }).init("boxface.bmp");
     this.loaders.push(boxLoader);
 
         // Load objects
